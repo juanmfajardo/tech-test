@@ -9,7 +9,8 @@ const contactSchema = new mongoose.Schema({
         index: true,
     },
     phoneNumber: String,
-});
+    deleted: { type: Boolean, default: false },
+}, { timestamps: true });
 
 const Contact = mongoose.model('Contact', contactSchema);
 
