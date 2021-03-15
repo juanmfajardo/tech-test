@@ -3,11 +3,19 @@ import Contact from '../../models/contact.js';
 export const addContact = async (req, res) => {
     const { firstName, lastName, email, phoneNumber } = req.body;
 
-    const contact = await new Contact({
+    const contactFields = {
         firstName,
         lastName,
         email,
-        phoneNumber}).save();
+        phoneNumber,
+    };
+
+    const contact = await new Contact(
+        {
+            ...contactFields,
+            updateHistory: contactFields,
+        }
+    ).save();
     
     res.json({ message: 'Contact successfully added', contact }).status(200)
 };
