@@ -10,6 +10,7 @@ const mongooseLoader = async () => {
     }).catch(console.log);
 
     mongoose.set('debug', true);
+    mongoose.set('useFindAndModify', false);
 };
 
 export default mongooseLoader;
