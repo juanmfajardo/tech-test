@@ -2,7 +2,8 @@ import { Router } from 'express';
 import { addContact, 
     getContact,
     listContacts,
-    deleteContact } from '../controllers/contacts.js';
+    deleteContact,
+    updateContact } from '../controllers/contacts.js';
 
 const contactRoutes = Router();
 
@@ -12,7 +13,8 @@ const contacts = (router) => {
     contactRoutes.post('/', addContact);
     contactRoutes.get('/', listContacts);
     contactRoutes.get('/:id', getContact);
-    contactRoutes.delete('/:id', deleteContact)
+    contactRoutes.delete('/:id', deleteContact);
+    contactRoutes.patch('/:id', updateContact);
 };
 
 
