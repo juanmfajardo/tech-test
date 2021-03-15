@@ -1,15 +1,40 @@
 import mongoose from 'mongoose';
 
-const contactSchema = new mongoose.Schema({
-    firstName: String,
-    lastName: String,
+const Schema = mongoose.Schema;
+
+const updateHistorySchema = new Schema(
+    {
+        firstName: String,
+        lastName: String,
+        email: String,
+        phoneNumber: String,
+    }, 
+    { 
+        _id : false,
+        timestamps: { createdAt: false, updatedAt: true }
+    },
+);
+
+const contactSchema = new Schema({
+    firstName: {
+        type: String,
+        required: true,
+    },
+    lastName: {
+        type: String,
+        required: true,
+    },
     email: {
         type: String,
         unique: true,
         index: true,
     },
-    phoneNumber: String,
+    phoneNumber: {
+        type: String,
+        required: true,
+    },
     deleted: { type: Boolean, default: false },
+    updateHistory: [updateHistorySchema],
 }, { timestamps: true });
 
 const Contact = mongoose.model('Contact', contactSchema);
