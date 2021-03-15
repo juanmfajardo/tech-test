@@ -1,11 +1,18 @@
 import { Router } from 'express';
+import { addContact, 
+    getContact,
+    listContacts,
+    deleteContact } from '../controllers/contacts.js';
 
 const contactRoutes = Router();
 
 const contacts = (router) => {
     router.use('/contacts', contactRoutes);
 
-    contactRoutes.get('/', (req,res) => res.json({ message: 'success' }).status(200));
+    contactRoutes.post('/', addContact);
+    contactRoutes.get('/', listContacts);
+    contactRoutes.get('/:id', getContact);
+    contactRoutes.delete('/:id', deleteContact)
 };
 
 
