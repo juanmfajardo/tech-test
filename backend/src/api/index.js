@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import contacts from './routes/contacts.js'
+import contacts from './routes/contacts.js';
 
 const router = Router();
 
@@ -11,4 +11,3 @@ const routes = () => {
 };
 
 export default routes;
-

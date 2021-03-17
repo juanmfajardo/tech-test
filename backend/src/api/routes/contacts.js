@@ -1,9 +1,11 @@
 import { Router } from 'express';
-import { addContact, 
+import {
+    addContact,
     getContact,
     listContacts,
     deleteContact,
-    updateContact } from '../controllers/contacts.js';
+    updateContact,
+} from '../controllers/contacts.js';
 
 const contactRoutes = Router();
 
@@ -16,6 +18,5 @@ const contacts = (router) => {
     contactRoutes.delete('/:id', deleteContact);
     contactRoutes.patch('/:id', updateContact);
 };
-
 
 export default contacts;

@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 import mongoose from 'mongoose';
 
 const Schema = mongoose.Schema;
@@ -8,10 +9,10 @@ const updateHistorySchema = new Schema(
         lastName: String,
         email: String,
         phoneNumber: String,
-    }, 
-    { 
-        _id : false,
-        timestamps: { createdAt: false, updatedAt: true }
+    },
+    {
+        _id: false,
+        timestamps: { createdAt: false, updatedAt: true },
     },
 );
 

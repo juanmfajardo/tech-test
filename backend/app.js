@@ -7,14 +7,14 @@ const startServer = async () => {
     const app = express();
     await loaders(app);
 
-    app.listen(config.PORT, () => { 
+    app.listen(config.PORT, () => {
         console.log(`Backend running on port ${config.PORT} 🚀`);
-    })
+    });
 
     app.on('error', (err) => {
         console.log(err);
         process.exit(1);
     });
-}
+};
 
 startServer();
