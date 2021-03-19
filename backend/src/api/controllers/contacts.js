@@ -46,8 +46,11 @@ export const updateContact = async (req, res) => {
         phoneNumber,
     };
 
-    Object.keys(contactsFieldsToUpdate).forEach((key) => (
-        contactsFieldsToUpdate[key] === undefined && delete contactsFieldsToUpdate[key]));
+    const contact = await Contact.findById(id, { updateHistory: 0 }).lean();
+
+    Object.keys(fieldsToUpdate).forEach((key) => (
+        (fieldsToUpdate[key] === contact[key] || fieldsToUpdate[key] === undefined)
+        && delete fieldsToUpdate[key]));
 
     await Contact.findByIdAndUpdate(id, {
         $set: contactsFieldsToUpdate,
