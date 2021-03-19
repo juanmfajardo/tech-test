@@ -52,10 +52,12 @@ export const updateContact = async (req, res) => {
         (fieldsToUpdate[key] === contact[key] || fieldsToUpdate[key] === undefined)
         && delete fieldsToUpdate[key]));
 
-    await Contact.findByIdAndUpdate(id, {
-        $set: fieldsToUpdate,
-        $push: { updateHistory: fieldsToUpdate },
-    }, { new: true });
+    if (Object.entries(fieldsToUpdate).length) {
+        await Contact.findByIdAndUpdate(id, {
+            $set: fieldsToUpdate,
+            $push: { updateHistory: fieldsToUpdate },
+        }, { new: true });
+    }
 
     res.json({ message: 'Contact successfully updated', updatedFields: fieldsToUpdate }).status(200);
 };
