@@ -69,7 +69,7 @@ export const getContact = async (req, res) => {
 };
 
 export const listContacts = async (req, res) => {
-    const contacts = await Contact.find({ deleted: false });
+    const contacts = await Contact.find({}, { updateHistory: 0 });
 
     res.json({ message: 'Contacts successfully obtained', contacts }).status(200);
 };
