@@ -73,3 +73,11 @@ export const listContacts = async (req, res) => {
 
     res.json({ message: 'Contacts successfully obtained', contacts }).status(200);
 };
+
+export const checkExistsEmail = async (req, res) => {
+    const { emailValue: email } = req.params;
+    const contact = await Contact.findOne({ email });
+
+    if (contact) return res.json({ message: 'Email already in use' }).status(200);
+    return res.status(404).json({ message: 'Email not Found' });
+};

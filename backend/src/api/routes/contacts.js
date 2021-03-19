@@ -11,6 +11,8 @@ const contactRoutes = Router();
 const contacts = (router) => {
     router.use('/contacts', contactRoutes);
 
+    contactRoutes.get('/verify/:email?', emailValidation(), validate, checkExistsEmail);
+
     contactRoutes.post('/', createValidation(), validate, addContact);
     contactRoutes.get('/', listContacts);
     contactRoutes.get('/:id', idValidation(), validate, getContact);
