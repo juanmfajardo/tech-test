@@ -34,7 +34,6 @@ const contactSchema = new Schema({
         type: String,
         required: true,
     },
-    deleted: { type: Boolean, default: false },
     updateHistory: [updateHistorySchema],
 }, { timestamps: true });
 
