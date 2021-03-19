@@ -1,4 +1,4 @@
-import Contact from '../../models/contact.js';
+import { Contact, RemovedContact } from '../../models/contact.js';
 
 export const addContact = async (req, res) => {
     const {
@@ -25,7 +25,10 @@ export const addContact = async (req, res) => {
 export const deleteContact = async (req, res) => {
     const { id } = req.params;
 
-    await Contact.findByIdAndUpdate(id, { deleted: true });
+    const contact = await Contact.findById(id);
+
+    await new RemovedContact(contact.toObject()).save();
+    contact.remove();
 
     res.json({ message: 'Contact successfully deleted' }).status(200);
 };

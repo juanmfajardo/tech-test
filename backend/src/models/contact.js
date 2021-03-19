@@ -37,6 +37,5 @@ const contactSchema = new Schema({
     updateHistory: [updateHistorySchema],
 }, { timestamps: true });
 
-const Contact = mongoose.model('Contact', contactSchema);
-
-export default Contact;
+export const Contact = mongoose.model('Contact', contactSchema);
+export const RemovedContact = mongoose.model('Removed Contacts', contactSchema);
