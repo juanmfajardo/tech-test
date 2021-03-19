@@ -39,7 +39,7 @@ export const updateContact = async (req, res) => {
     } = req.body;
     const { id } = req.params;
 
-    const contactsFieldsToUpdate = {
+    const fieldsToUpdate = {
         firstName,
         lastName,
         email,
@@ -53,11 +53,11 @@ export const updateContact = async (req, res) => {
         && delete fieldsToUpdate[key]));
 
     await Contact.findByIdAndUpdate(id, {
-        $set: contactsFieldsToUpdate,
-        $push: { updateHistory: contactsFieldsToUpdate },
+        $set: fieldsToUpdate,
+        $push: { updateHistory: fieldsToUpdate },
     }, { new: true });
 
-    res.json({ message: 'Contact successfully updated', updatedFields: contactsFieldsToUpdate }).status(200);
+    res.json({ message: 'Contact successfully updated', updatedFields: fieldsToUpdate }).status(200);
 };
 
 export const getContact = async (req, res) => {
