@@ -5,10 +5,10 @@ const Schema = mongoose.Schema;
 
 const updateHistorySchema = new Schema(
     {
-        firstName: String,
-        lastName: String,
-        email: String,
-        phoneNumber: String,
+        firstName: { type: String, trim: true },
+        lastName: { type: String, trim: true },
+        email: { type: String, trim: true, lowercase: true },
+        phoneNumber: { type: String, trim: true },
     },
     {
         _id: false,
@@ -19,19 +19,24 @@ const updateHistorySchema = new Schema(
 const contactSchema = new Schema({
     firstName: {
         type: String,
+        trim: true,
         required: true,
     },
     lastName: {
         type: String,
+        trim: true,
         required: true,
     },
     email: {
         type: String,
+        trim: true,
+        lowercase: true,
         unique: true,
         index: true,
     },
     phoneNumber: {
         type: String,
+        trim: true,
         required: true,
     },
     updateHistory: [updateHistorySchema],
