@@ -3,7 +3,7 @@ import { body, param, validationResult } from 'express-validator';
 import { Contact } from '../../models/contact.js';
 
 const emailInUse = async (value) => {
-    const contact = Contact.findOne({ email: value });
+    const contact = await Contact.findOne({ email: value });
     if (contact) throw new Error('email already in use');
     return true;
 };
