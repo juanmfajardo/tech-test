@@ -8,7 +8,7 @@ const emailInUse = async (value) => {
     return true;
 };
 
-export const emptyFieldsValidation = () => [
+export const contactFieldsValidation = () => [
     body('firstName')
         .notEmpty()
         .withMessage('firstName can not be empty!'),
@@ -17,32 +17,27 @@ export const emptyFieldsValidation = () => [
         .withMessage('lastName can not be empty!'),
     body('phoneNumber')
         .notEmpty()
-        .withMessage('phoneNumber can not be empty!'),
-    body('email')
-        .notEmpty()
-        .withMessage('email can not be empty!'),
-];
-
-export const validFieldsValidation = () => [
-    body('phoneNumber')
+        .withMessage('phoneNumber can not be empty!')
         .isMobilePhone()
         .withMessage('phoneNumber is not a valid Phone Number!'),
     body('email')
+        .notEmpty()
+        .withMessage('email can not be empty!')
+        .bail()
+        .trim()
         .toLowerCase()
         .isEmail()
         .withMessage('email is not a valid Email!')
         .custom(emailInUse),
 ];
 
-export const createValidation = () => [...emptyFieldsValidation(), ...validFieldsValidation()];
-
 export const emailValidation = () => [
     param('email')
-        .trim()
-        .toLowerCase()
         .notEmpty()
         .withMessage('email can not be empty!')
         .bail()
+        .trim()
+        .toLowerCase()
         .isEmail()
         .withMessage('email is not a valid Email!'),
 ];

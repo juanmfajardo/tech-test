@@ -3,7 +3,7 @@ import {
     addContact, getContact, listContacts, deleteContact, updateContact, checkExistsEmail,
 } from '../controllers/contacts.js';
 import {
-    createValidation, emailValidation, validate, validFieldsValidation, idValidation,
+    contactFieldsValidation, emailValidation, validate, idValidation,
 } from '../middlewares/validators.js';
 
 const contactRoutes = Router();
@@ -13,11 +13,11 @@ const contacts = (router) => {
 
     contactRoutes.get('/verify/:email?', emailValidation(), validate, checkExistsEmail);
 
-    contactRoutes.post('/', createValidation(), validate, addContact);
+    contactRoutes.post('/', contactFieldsValidation(), validate, addContact);
     contactRoutes.get('/', listContacts);
     contactRoutes.get('/:id', idValidation(), validate, getContact);
     contactRoutes.delete('/:id', idValidation(), validate, deleteContact);
-    contactRoutes.patch('/:id', idValidation(), validFieldsValidation(), validate, updateContact);
+    contactRoutes.patch('/:id', idValidation(), contactFieldsValidation(), validate, updateContact);
 };
 
 export default contacts;
