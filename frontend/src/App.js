@@ -105,7 +105,7 @@ const App = () => {
         <HistoryModal
           visible={showHistoryModal}
           handleClose={() => handleCloseModal('history')}
-          contact={contact}
+          updateHistory={contact?.updateHistory}
         />
         <Container>
           <Row>
