@@ -2,7 +2,7 @@ import Table from 'react-bootstrap/Table';
 import ContactRow from './ContactRow';
 
 const ContactsTable = ({ contacts }) => (
-  <Table striped bordered hover>
+  <Table responsive striped bordered hover style={{ marginTop: '50px' }}>
     <thead>
       <tr>
         <th>#</th>
@@ -15,7 +15,7 @@ const ContactsTable = ({ contacts }) => (
     </thead>
     <tbody>
       { contacts.map((contact) => (
-        <ContactRow contact={contact} />
+        <ContactRow key={contact.id} contact={contact} />
       ))}
     </tbody>
   </Table>
