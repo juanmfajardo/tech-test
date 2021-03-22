@@ -11,6 +11,7 @@ const mongooseLoader = async () => {
 
     mongoose.set('debug', true);
     mongoose.set('useFindAndModify', false);
+    mongoose.set('toJSON', { virtuals: true });
 };
 
 export default mongooseLoader;
