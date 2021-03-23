@@ -1,31 +1,47 @@
-/* eslint-disable no-debugger */
 import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 
+import { checkEmailInUse } from '../Utils/helper';
+
 const contactForm = ({ contact, handleSubmitForm }) => {
   const [validated, setValidated] = useState(false);
+  const [emailInUse, setEmailInUse] = useState(false);
 
-  const handleSubmit = (event) => {
+  const isEmailInUse = async (email) => {
+    if (!email) return false;
+    const emailBeingUsed = await checkEmailInUse(email);
+
+    return emailBeingUsed;
+  };
+
+  const handleSubmit = async (event) => {
     const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
-      setValidated(true);
-    } else {
-      const {
-        firstName, lastName, email, phone,
-      } = form.elements;
+    event.preventDefault();
+    event.stopPropagation();
 
-      debugger;
-      const fields = {
-        firstName: firstName.value,
-        lastName: lastName.value,
-        email: email.value,
-        phoneNumber: phone.value,
-        id: contact?.id,
-      };
+    const {
+      firstName, lastName, email, phone,
+    } = form.elements;
+
+    const fields = {
+      firstName: contact?.firstName !== firstName.value ? firstName.value : undefined,
+      lastName: contact?.lastName !== lastName.value ? lastName.value : undefined,
+      email: contact?.email !== email.value ? email.value : undefined,
+      phoneNumber: contact?.phoneNumber !== phone.value ? phone.value : undefined,
+      id: contact?.id,
+    };
+
+    if (form.checkValidity() === false) {
+      setValidated(true);
+    } else if (form.checkValidity() === true) {
+      setValidated(false);
+    }
+
+    if (await isEmailInUse(fields.email)) {
+      setEmailInUse(true);
+    } else if (form.checkValidity() === true) {
       handleSubmitForm(fields);
     }
   };
@@ -41,7 +57,7 @@ const contactForm = ({ contact, handleSubmitForm }) => {
             defaultValue={contact?.firstName}
           />
           <Form.Control.Feedback type="invalid">
-            Please provide a valid first name
+            Provide a valid first name
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group as={Col} md="6" controlId="lastName">
@@ -52,7 +68,7 @@ const contactForm = ({ contact, handleSubmitForm }) => {
             defaultValue={contact?.lastName}
           />
           <Form.Control.Feedback type="invalid">
-            Please provide a valid last name
+            Provide a valid last name
           </Form.Control.Feedback>
         </Form.Group>
       </Form.Row>
@@ -64,9 +80,10 @@ const contactForm = ({ contact, handleSubmitForm }) => {
             type="email"
             defaultValue={contact?.email}
             pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,63}$"
+            isInvalid={emailInUse && !validated}
           />
           <Form.Control.Feedback type="invalid">
-            Please provide a valid email
+            {emailInUse && !validated ? 'This email is already in use' : 'Please provide a valid email'}
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group as={Col} md="6" controlId="phone">
@@ -78,7 +95,7 @@ const contactForm = ({ contact, handleSubmitForm }) => {
             pattern="[0-9]{9}"
           />
           <Form.Control.Feedback type="invalid">
-            Please provide a valid phone
+            Provide a valid phone (6 digits)
           </Form.Control.Feedback>
         </Form.Group>
       </Form.Row>
