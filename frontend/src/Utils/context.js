@@ -1,7 +1,7 @@
 import { createContext } from 'react';
 
 const DataContext = createContext({
-  handleEditContact: () => ({}),
+  handleUpdateContact: () => ({}),
   handleRemoveContact: () => ({}),
   handleShowUpdateHistory: () => ({}),
 });
