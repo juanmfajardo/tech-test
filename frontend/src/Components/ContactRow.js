@@ -1,8 +1,8 @@
 import ContactOptions from './ContactOptions';
 
-const ContactRow = ({ contact }) => (
+const ContactRow = ({ contact, index }) => (
   <tr>
-    <td>{contact.id}</td>
+    <td>{index + 1}</td>
     <td>{contact.firstName}</td>
     <td>{contact.lastName}</td>
     <td>{contact.email}</td>

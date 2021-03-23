@@ -14,8 +14,8 @@ const ContactsTable = ({ contacts }) => (
       </tr>
     </thead>
     <tbody>
-      { contacts.map((contact) => (
-        <ContactRow key={contact.id} contact={contact} />
+      { contacts.map((contact, index) => (
+        <ContactRow key={contact.id} contact={contact} index={index} />
       ))}
     </tbody>
   </Table>
