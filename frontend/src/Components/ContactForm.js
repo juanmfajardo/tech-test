@@ -95,7 +95,7 @@ const contactForm = ({ contact, handleSubmitForm }) => {
             pattern="[0-9]{9}"
           />
           <Form.Control.Feedback type="invalid">
-            Provide a valid phone (6 digits)
+            Provide a valid phone (9 digits)
           </Form.Control.Feedback>
         </Form.Group>
       </Form.Row>
