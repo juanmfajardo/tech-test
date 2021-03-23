@@ -10,11 +10,20 @@ services:
             - mongo
         env_file:
             - ./backend/.env
+    frontend:
+        build: ./frontend
+        container_name: "frontend"
+        ports:
+            - 3000:3000
+        depends_on:
+            - backend
+        env_file:
+            - ./frontend/.env
     mongo:
         restart: always
         image: mongo:4.2.12
         container_name: "mongo_backend"
         ports:
-            - "27017:27017"
+            - 27017:27017
         volumes:
             - ./mongo_data:/data/db
