@@ -17,7 +17,7 @@ const contacts = (router) => {
     contactRoutes.get('/', getContacts);
     contactRoutes.get('/:id', idValidation(), validate, getContact);
     contactRoutes.delete('/:id', idValidation(), validate, deleteContact);
-    contactRoutes.patch('/:id', idValidation(), contactFieldsValidation(), validate, updateContact);
+    contactRoutes.patch('/:id', idValidation(), validate, updateContact);
 };
 
 export default contacts;
