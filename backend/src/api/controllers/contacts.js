@@ -69,7 +69,7 @@ export const getContacts = async (req, res) => {
 };
 
 export const checkExistsEmail = async (req, res) => {
-    const { emailValue: email } = req.params;
+    const { email } = req.params;
     const contact = await getContactByEmail(email);
 
     if (contact) return res.json({ message: 'Email already in use' }).status(200);
