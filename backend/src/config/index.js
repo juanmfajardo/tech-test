@@ -1,4 +1,5 @@
 export default {
-    PORT: parseInt(2000, 10),
-    MONGO_URL: 'mongodb://localhost:27017/tech_test',
+    PORT: process.env.PORT || 2000,
+    MONGO_URL: process.env.MONGO_URL || 'mongodb://localhost:27017/',
+    MONGO_DB: process.env.MONGO_DB || 'tech_test',
 };
