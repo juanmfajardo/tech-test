@@ -93,3 +93,13 @@ export const createContact = async (fields) => {
     return error.message;
   }
 };
+
+export const checkEmailInUse = async (email) => {
+  try {
+    const contact = await fetch(`${CONSTANTS.API_HOST}${CONSTANTS.CONTACTS}/verify/${email}`);
+    if (contact.status === 200) return true;
+    return false;
+  } catch (error) {
+    return error.message;
+  }
+};
