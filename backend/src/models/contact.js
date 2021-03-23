@@ -11,36 +11,39 @@ const updateHistorySchema = new Schema(
         phoneNumber: { type: String, trim: true },
     },
     {
-        _id: false,
         timestamps: { createdAt: false, updatedAt: true },
     },
 );
 
-const contactSchema = new Schema({
-    firstName: {
-        type: String,
-        trim: true,
-        required: true,
+const contactSchema = new Schema(
+    {
+        firstName: {
+            type: String,
+            trim: true,
+            required: true,
+        },
+        lastName: {
+            type: String,
+            trim: true,
+            required: true,
+        },
+        email: {
+            type: String,
+            trim: true,
+            lowercase: true,
+            index: true,
+        },
+        phoneNumber: {
+            type: String,
+            trim: true,
+            required: true,
+        },
+        updateHistory: [updateHistorySchema],
     },
-    lastName: {
-        type: String,
-        trim: true,
-        required: true,
+    {
+        timestamps: true,
     },
-    email: {
-        type: String,
-        trim: true,
-        lowercase: true,
-        unique: true,
-        index: true,
-    },
-    phoneNumber: {
-        type: String,
-        trim: true,
-        required: true,
-    },
-    updateHistory: [updateHistorySchema],
-}, { timestamps: true });
+);
 
 export const Contact = mongoose.model('Contact', contactSchema);
 export const RemovedContact = mongoose.model('Removed Contacts', contactSchema);
