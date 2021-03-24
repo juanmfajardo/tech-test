@@ -4,6 +4,7 @@ import logger from 'morgan';
 import cors from 'cors';
 
 import routes from '../api/index.js';
+import errorController from '../api/controllers/errors.js';
 
 const expressLoader = (app) => {
     app.use(logger('dev'));
@@ -13,6 +14,8 @@ const expressLoader = (app) => {
     app.use(cors());
 
     app.use('/api', routes());
+
+    app.use(errorController);
 };
 
 export default expressLoader;
