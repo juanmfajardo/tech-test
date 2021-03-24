@@ -8,8 +8,11 @@ services:
             - 2000:2000
         depends_on:
             - mongo
-        env_file:
-            - ./backend/.env
+        environment:
+            PORT: 2000
+            MONGO_URL: mongodb://mongo:27017/
+            MONGO_DB: tech_test
+            
     frontend:
         build: ./frontend
         container_name: "frontend"
