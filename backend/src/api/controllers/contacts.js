@@ -4,6 +4,7 @@ import {
 } from '../../services/database.js';
 
 import getFieldsToUpdate from '../../services/contacts.js';
+import response from './responses.js';
 
 export const addContact = async (req, res) => {
     const {
@@ -19,16 +20,19 @@ export const addContact = async (req, res) => {
 
     const contact = await createContact(contactFields);
 
-    res.json({ message: 'Contact successfully added', contact }).status(200);
+    return response.success(res, 'Contact successfully added', { data: contact });
 };
 
 export const deleteContact = async (req, res) => {
     const { id } = req.params;
 
     const contact = await getContactById(id);
+    if (!contact) {
+        return response.notFound(res, 'Contact not found');
+    }
     await removeContact(contact);
 
-    res.json({ message: 'Contact successfully deleted' }).status(200);
+    return response.success(res, 'Contact successfully deleted', { data: contact });
 };
 
 export const updateContact = async (req, res) => {
@@ -45,33 +49,40 @@ export const updateContact = async (req, res) => {
     };
 
     const contact = await getContactById(id);
+    if (!contact) {
+        return response.notFound(res, 'Contact not found');
+    }
     const fieldsToUpdate = getFieldsToUpdate(contactFields, contact);
 
     if (Object.entries(fieldsToUpdate).length) {
         await updateContactById(id, fieldsToUpdate);
     }
 
-    res.json({ message: 'Contact successfully updated', updatedFields: fieldsToUpdate }).status(200);
+    return response.success(res, 'Contact successfully updated', { data: contact });
 };
 
 export const getContact = async (req, res) => {
-    const { id } = req.params;
+    const { id } = req.params.test;
 
     const contact = await getContactById(id);
+    if (!contact) {
+        return response.notFound(res, 'Contact not found');
+    }
 
-    res.json({ message: 'Contact successfully obtained', contact }).status(200);
+    return response.success(res, 'Contact successfully obtained', { data: contact });
 };
 
 export const getContacts = async (req, res) => {
     const contacts = await getAllContacts();
 
-    res.json({ message: 'Contacts successfully obtained', contacts }).status(200);
+    return response.success(res, 'Contacts successfully obtained', { data: contacts });
 };
 
 export const checkExistsEmail = async (req, res) => {
     const { email } = req.params;
     const contact = await getContactByEmail(email);
-
-    if (contact) return res.json({ message: 'Email already in use' }).status(200);
-    return res.status(404).json({ message: 'Email not Found' });
+    if (contact) {
+        return response.success(res, 'Email already in use');
+    }
+    return response.notFound(res, 'Email not Found');
 };
