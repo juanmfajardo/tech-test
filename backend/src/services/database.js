@@ -6,7 +6,7 @@ export const getContactByEmail = async (email) => Contact.findOne({ email });
 
 export const removeContact = async (contact) => {
     await new RemovedContact(contact.toObject()).save();
-    contact.remove();
+    await contact.remove();
 };
 
 export const updateContactById = async (id, fieldsToUpdate) => Contact.findByIdAndUpdate(id, {
