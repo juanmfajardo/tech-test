@@ -1,4 +1,4 @@
-const asyncHandler = (fn) => async (req, res, next) => {
+export const asyncHandler = (fn) => async (req, res, next) => {
     try {
         await fn(req, res);
     } catch (error) {
@@ -6,4 +6,4 @@ const asyncHandler = (fn) => async (req, res, next) => {
     }
 };
 
-export default asyncHandler;
+export const isTestEnvironment = () => process.env.NODE_ENV === 'test';

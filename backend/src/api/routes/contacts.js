@@ -6,7 +6,7 @@ import {
     contactFieldsValidation, emailValidation, validate, idValidation,
 } from '../middlewares/validators.js';
 
-import asyncHandler from '../../utils/index.js';
+import { asyncHandler } from '../../utils/index.js';
 
 const contactRoutes = Router();
 
