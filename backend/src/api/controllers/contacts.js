@@ -62,7 +62,7 @@ export const updateContact = async (req, res) => {
 };
 
 export const getContact = async (req, res) => {
-    const { id } = req.params.test;
+    const { id } = req.params;
 
     const contact = await getContactById(id);
     if (!contact) {
