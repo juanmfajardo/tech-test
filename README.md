@@ -18,6 +18,7 @@ docker-compose up -d --build
 # Potential Improvements
 - Move strings to constant file
 - _Backend_ - Logger to avoid console.logs (Winston)
+- _Backend_ - Cover all endpoints with tests
 - _Frontend_ -  Project Structure
 - _Frontend_ -  Handling of error responses from the backend
 - _Frontend_ -  Add tests
