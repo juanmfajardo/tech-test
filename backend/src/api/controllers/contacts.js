@@ -58,7 +58,7 @@ export const updateContact = async (req, res) => {
         await updateContactById(id, fieldsToUpdate);
     }
 
-    return response.success(res, 'Contact successfully updated', { data: contact });
+    return response.success(res, 'Contact successfully updated', { data: { updatedFields: fieldsToUpdate } });
 };
 
 export const getContact = async (req, res) => {
