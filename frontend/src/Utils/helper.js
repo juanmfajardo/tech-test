@@ -2,9 +2,9 @@ import CONSTANTS from './constants';
 
 export const getContacts = async () => {
   try {
-    const contacts = await fetch(`${CONSTANTS.API_HOST}${CONSTANTS.CONTACTS}`);
+    const contacts = await fetch(`${CONSTANTS.API_HOST}${CONSTANTS.CONTACT_ROUTE}`);
     const json = await contacts.json();
-    const response = json.contacts || [];
+    const response = json.data || [];
 
     return response;
   } catch (error) {
@@ -14,9 +14,9 @@ export const getContacts = async () => {
 
 export const getContact = async (id) => {
   try {
-    const contact = await fetch(`${CONSTANTS.API_HOST}${CONSTANTS.CONTACTS}/${id}`);
+    const contact = await fetch(`${CONSTANTS.API_HOST}${CONSTANTS.CONTACT_ROUTE}/${id}`);
     const json = await contact.json();
-    const response = json.contact || null;
+    const response = json.data || null;
 
     return response;
   } catch (error) {
@@ -26,13 +26,14 @@ export const getContact = async (id) => {
 
 export const removeContact = async (id) => {
   try {
-    const contact = await fetch(`${CONSTANTS.API_HOST}${CONSTANTS.CONTACTS}/${id}`, {
+    const contact = await fetch(`${CONSTANTS.API_HOST}${CONSTANTS.CONTACT_ROUTE}/${id}`, {
       method: 'DELETE',
     });
     const json = await contact.json();
-    const response = json.contact || null;
-    console.log(response);
-    return true;
+    const response = json.data || null;
+
+    if (response.id === id) return true;
+    return false;
   } catch (error) {
     return error.message;
   }
@@ -44,7 +45,7 @@ export const updateContact = async (fields) => {
       firstName, lastName, phoneNumber, email, id,
     } = fields;
 
-    const updateContactRes = await fetch(`${CONSTANTS.API_HOST}${CONSTANTS.CONTACTS}/${id}`, {
+    const updateContactRes = await fetch(`${CONSTANTS.API_HOST}${CONSTANTS.CONTACT_ROUTE}/${id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -59,7 +60,7 @@ export const updateContact = async (fields) => {
     });
 
     const json = await updateContactRes.json();
-    const response = json.updatedFields || null;
+    const response = json.data.updatedFields || null;
     return response;
   } catch (error) {
     return error.message;
@@ -72,7 +73,7 @@ export const createContact = async (fields) => {
       firstName, lastName, phoneNumber, email,
     } = fields;
 
-    const updateContactRes = await fetch(`${CONSTANTS.API_HOST}${CONSTANTS.CONTACTS}`, {
+    const updateContactRes = await fetch(`${CONSTANTS.API_HOST}${CONSTANTS.CONTACT_ROUTE}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -87,7 +88,7 @@ export const createContact = async (fields) => {
     });
 
     const json = await updateContactRes.json();
-    const response = json.contact || null;
+    const response = json.data || null;
     return response;
   } catch (error) {
     return error.message;
@@ -96,7 +97,7 @@ export const createContact = async (fields) => {
 
 export const checkEmailInUse = async (email) => {
   try {
-    const contact = await fetch(`${CONSTANTS.API_HOST}${CONSTANTS.CONTACTS}/verify/${email}`);
+    const contact = await fetch(`${CONSTANTS.API_HOST}${CONSTANTS.CONTACT_ROUTE}/verify/${email}`);
     if (contact.status === 200) return true;
     return false;
   } catch (error) {
