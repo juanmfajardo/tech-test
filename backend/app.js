@@ -3,8 +3,9 @@ import express from 'express';
 import config from './src/config/index.js';
 import loaders from './src/loaders/index.js';
 
+const app = express();
+
 const startServer = async () => {
-    const app = express();
     await loaders(app);
 
     app.listen(config.PORT, () => {
@@ -18,3 +19,5 @@ const startServer = async () => {
 };
 
 startServer();
+
+export default app;
