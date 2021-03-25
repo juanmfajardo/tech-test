@@ -13,9 +13,9 @@ const contactOptions = ({ contact }) => {
   } = useContext(DataContext);
   return (
     <ButtonGroup>
-      <Button variant="primary" size="sm" onClick={() => handleShowUpdateHistory(contact.id)}><BsEye /></Button>
-      <Button variant="warning" size="sm" onClick={() => handleUpdateContact(contact)}><BsPencil /></Button>
-      <Button variant="danger" size="sm" onClick={() => handleRemoveContact(contact.id)}><BsTrash /></Button>
+      <Button className="shadow-none" variant="primary" size="sm" active={false} onClick={() => handleShowUpdateHistory(contact.id)}><BsEye /></Button>
+      <Button className="shadow-none" variant="warning" size="sm" active={false} onClick={() => handleUpdateContact(contact)}><BsPencil /></Button>
+      <Button className="shadow-none" variant="danger" size="sm" active={false} onClick={() => handleRemoveContact(contact.id)}><BsTrash /></Button>
     </ButtonGroup>
   );
 };
