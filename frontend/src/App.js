@@ -42,6 +42,7 @@ const App = () => {
     const removedContact = await removeContact(contactId);
     if (removedContact) {
       setContacts(contacts.filter((c) => c.id !== contactId));
+      setContact(null);
     }
   };
 
@@ -57,11 +58,13 @@ const App = () => {
           contactsCopy[index][key] = updatedfields[key];
         });
         setContacts(contactsCopy);
+        setContact(null);
         setShowFormModal(false);
       }
     } else {
       const newContact = await createContact(fields);
       setContacts([...contacts, newContact]);
+      setContact(null);
       setShowFormModal(false);
     }
   };
