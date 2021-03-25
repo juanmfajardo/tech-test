@@ -12,7 +12,7 @@ const FormModal = ({ visible, handleClose, updateHistory = [] }) => (
     <Modal.Body>
       {
         updateHistory.map((item, index) => (
-          <div>
+          <div key={item.id}>
             { index === 0
               ? <p><b>{`Original Contact (${moment(item.updatedAt).format('DD/MM/YYYY HH:mm:ss')}):`}</b></p>
               : <p><b>{`Update ${index + 1} (${moment(item.updatedAt).format('DD/MM/YYYY HH:mm:ss')}):`}</b></p> }
